@@ -18,5 +18,5 @@
 #
 ---
 include:
-  - board: blackpill_f401ce
-    shield: two_percent_milk
+  - board: pillbug
+    shield: obe

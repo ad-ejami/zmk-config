@@ -1,0 +1,262 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/ext_power.h>
+
+#define TIMEOUT 300
+
+&encoder_1 {
+    status = "okay";
+};
+
+/ {
+    combos {
+        combo_lock {
+            timeout-ms = <TIMEOUT>;
+            key-positions = <1 7>;
+            bindings = <&tog 6>;
+        };
+        combo_reset {
+            timeout-ms = <TIMEOUT>;
+            key-positions = <1 3>;
+            bindings = <&sys_reset>;
+        };
+        combo_bootloader {
+            timeout-ms = <TIMEOUT>;
+            key-positions = <1 15>;
+            bindings = <&bootloader>;
+        };
+    };
+
+    macros {
+        wsshot: wsshot {
+            label = "Windows screenshot";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LSHFT &kp LGUI>,
+                <&macro_tap &kp S>,
+                <&macro_release &kp LSHFT &kp LGUI>;
+        };
+
+        wpdesk: wpdesk {
+            label = "Windows previous desktop";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LCTRL &kp LGUI>,
+                <&macro_tap &kp LEFT>,
+                <&macro_release &kp LCTRL &kp LGUI>;
+        };
+
+		wndesk: wndesk {
+			label = "Windows next desktop";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LCTRL &kp LGUI>,
+                <&macro_tap &kp RIGHT>,
+                <&macro_release &kp LCTRL &kp LGUI>;
+		};      
+
+		mpdesk: mpdesk {
+			label = "Mac previous desktop";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LCTRL>,
+                <&macro_tap &kp LEFT>,
+                <&macro_release &kp LCTRL>;
+		};
+
+		mndesk: mndesk {
+			label = "Mac next desktop";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LCTRL>,
+                <&macro_tap &kp RIGHT>,
+                <&macro_release &kp LCTRL>;
+		};
+
+		mmcontrol: mmcontrol {
+			label = "Mac mission control";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LCTRL>,
+                <&macro_tap &kp UP>,
+                <&macro_release &kp LCTRL>;
+		};
+
+		mcapp: mcapp {
+			label = "Mac windows in current app";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LCTRL>,
+                <&macro_tap &kp DOWN>,
+                <&macro_release &kp LCTRL>;
+		};
+
+		mwcycle: mwcycle {
+			label = "Same app window cycle";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+				<&macro_press &kp LGUI>,
+                <&macro_tap &kp GRAVE>,
+                <&macro_release &kp LCTRL>;
+		};
+	};
+    
+    sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&encoder_1>;
+    };
+
+    keymap0: keymap {
+        compatible = "zmk,keymap";
+
+        // |||||/----\|||||    --------------------------------------------------------------------------
+        // |VOLU|MUTE|VOLD|   |ESC | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | -  | =  | `  |DEL |
+        // |||||\----/|||||   ----------------------------------------------------------------------------
+        //      |PGUP|       | TAB  | Q  | W  | E  | R  | T  |||| Y  | U  | I  | O  | P  | [  | ]  |  \   |
+        //      |----|       |--------------------------------|||-----------------------------------------|
+        //      |PGDN|       |C. LOCK| A  | S  | D  | F  | G  ||||| H  | J  | K  | L  | ;  | '  |  ENTER  |
+        //       ----        ---------------------------------|||------------------------------------------
+        //                  | LSHIFT  | Z  | X  | C  | V  | B  || B  | N  | M  | ,  | .  | /  | UP |RSHIFT |
+        //                   ------------------------------------------------------------------------------
+        //                   |LCTRL|LGUI ||||LALT |  SPACE  |MO 2|| BACKSPACE |RALT||RCTRL|LEFT|DOWN|RGHT|
+        //                    --------------------------------------------------------------------------
+        default_layer {
+            label = "default layer";
+            bindings = <
+                &kp C_MUTE &kp ESC   &kp N1   &kp N2   &kp N3   &kp N4    &kp N5 &kp N6           &kp N7   &kp N8 &kp N9    &kp N0    &kp MINUS &kp EQUAL &kp GRAVE &kp DEL
+                &kp PG_UP  &kp TAB   &kp Q    &kp W    &kp E    &kp R     &kp T                   &kp Y    &kp U  &kp I     &kp O     &kp P     &kp LBKT  &kp RBKT  &kp BSLH
+                &kp PG_DN  &kp CAPS  &kp A    &kp S    &kp D    &kp F     &kp G                   &kp H    &kp J  &kp K     &kp L     &kp SEMI  &kp APOS  &kp ENTER
+                           &kp LSHFT &kp Z    &kp X    &kp C    &kp V     &kp B                   &kp B    &kp N  &kp M     &kp COMMA &kp DOT   &kp FSLH  &kp UP    &kp RSHFT
+                           &kp LCTRL &kp LGUI          &kp LALT &kp SPACE &mo 2                   &kp BSPC        &kp RALT  &kp RCTRL           &kp LEFT  &kp DOWN  &kp RIGHT
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+        
+        // |||||/----\|||||    --------------------------------------------------------------------------
+        // |VOLU|MUTE|VOLD|   |ESC | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 0  | -  | =  | `  |DEL |
+        // |||||\----/|||||   ----------------------------------------------------------------------------
+        //      |PGUP|       | TAB  | Q  | W  | E  | R  | T  |||| Y  | U  | I  | O  | P  | [  | ]  |  \   |
+        //      |----|       |--------------------------------|||-----------------------------------------|
+        //      |PGDN|       |C. LOCK| A  | S  | D  | F  | G  ||||| H  | J  | K  | L  | ;  | '  |  ENTER  |
+        //       ----        ---------------------------------|||------------------------------------------
+        //                  | LSHIFT  | Z  | X  | C  | V  | B  || B  | N  | M  | ,  | .  | /  | UP |RSHIFT |
+        //                   ------------------------------------------------------------------------------
+        //                   |LGUI |LCTRL||||LALT |  SPACE  |MO 3|| BACKSPACE |RALT||RCTRL|LEFT|DOWN|RGHT|
+        //                    --------------------------------------------------------------------------
+        mac_layer {
+            label = "mac layer";
+            bindings = <
+                &trans &trans    &trans    &trans &trans &trans &trans &trans        &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans    &trans    &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans    &trans    &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans &trans
+                       &trans    &trans    &trans &trans &trans &trans               &trans &trans &trans &trans &trans &trans &trans &trans
+                       &kp LGUI  &kp LCTRL        &trans &trans &mo 3                &trans        &trans &trans        &trans &trans &trans
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+        
+        // |||||/----\|||||    --------------------------------------------------------------------------
+        // |    |    |    |   |ESC | F1 | F2 | F3 | F4 | F5 | F5 | F6 | F7 | F8 | F9 |F10 |F11 |F12 |DEL |
+        // |||||\----/|||||   ----------------------------------------------------------------------------
+        //      |HOME|       | TAB  |    |    |    |    |    ||||    |    |BT0|    |    |    |    |BT_CLR|
+        //      |----|       |--------------------------------|||-----------------------------------------|
+        //      |END |       |C. LOCK|WPDe|WScS|WNDe|    |    |||||    |BT1|BT2|BT3|    |    |  ENTER  |
+        //       ----        ---------------------------------|||------------------------------------------
+        //                  | LSHIFT  |    |    |    |    |    ||    |    |    |    |    |    |    |RSHIFT |
+        //                   ------------------------------------------------------------------------------
+        //                   |LCTRL|LGUI ||||LALT |  SPACE  |    || BACKSPACE |RALT||TO 1|CPREV |CPP |CNEXT |
+        //                    --------------------------------------------------------------------------
+        winmod_layer {
+            label = "win mod layer";
+            bindings = <
+                &none    &trans &kp F1  &kp F2  &kp F3  &kp F4 &kp F5 &kp F6        &kp F7  &kp F8       &kp F9       &kp F10      &kp F11 &kp F12      &none         &trans
+                &kp HOME &trans &none   &none   &none   &none  &none                &none   &none        &bt BT_SEL 0 &none        &none   &none        &none         &bt BT_CLR
+                &kp END  &trans &wpdesk &wsshot &wndesk &none  &none                &none   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none   &none        &trans
+                         &trans &none   &none   &none   &none  &none                &none   &none        &none        &none        &none   &none        &none         &trans
+                         &trans &trans          &trans  &trans &none                &trans               &trans       &to 1                &C_PREVIOUS  &C_PLAY_PAUSE &C_NEXT
+            >;
+        };
+
+        // |||||/----\|||||    --------------------------------------------------------------------------
+        // |    |    |    |   |ESC | F1 | F2 | F3 | F4 | F5 | F5 | F6 | F7 | F8 | F9 |F10 |F11 |F12 |DEL |
+        // |||||\----/|||||   ----------------------------------------------------------------------------
+        //      |HOME|       | TAB  |WCyc|MCon|    |    |    ||||    |    |BT0 |    |    |    |    |BT_CLR|
+        //      |----|       |--------------------------------|||-----------------------------------------|
+        //      |END |       |C. LOCK|PDes|AppO|NDes|    |    |||||    |BT1 |BT2 |BT3 |    |    |  ENTER  |
+        //       ----        ---------------------------------|||------------------------------------------
+        //                  | LSHIFT  |    |    |    |    |    ||    |    |    |    |    |    |    |RSHIFT |
+        //                   ------------------------------------------------------------------------------
+        //                   |LGUI |LCTRL||||LALT |  SPACE  |    || BACKSPACE |RALT||TO 0|CPREV|CPP |CNEXT|
+        //                    --------------------------------------------------------------------------
+        macmod_layer {
+            label = "mac mod layer";
+            bindings = <
+                &none    &trans   &kp F1    &kp F2     &kp F3  &kp F4 &kp F5 &kp F6      &kp F7 &kp F8       &kp F9       &kp F10      &kp F11 &kp F12     &none         &trans
+                &kp HOME &trans   &mwcycle  &mmcontrol &none   &none  &none              &none  &none        &bt BT_SEL 0 &none        &none   &none       &none         &bt BT_CLR
+                &kp END  &trans   &mpdesk   &mcapp     &mndesk &none  &none              &none  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none   &none       &trans
+                         &trans   &none     &none      &none   &none  &none              &none  &none        &none        &none        &none   &none       &none         &trans
+                         &kp LGUI &kp LCTRL            &trans  &trans &none              &trans              &trans       &to 0                &C_PREVIOUS &C_PLAY_PAUSE &C_NEXT
+            >;
+        };
+
+        // |||||/----\|||||    --------------------------------------------------------------------------
+        // |    |    |    |   |ESC |    |    |    |    |    |    |    |    |    |    |    |    |    |DEL |
+        // |||||\----/|||||   ----------------------------------------------------------------------------
+        //      |    |       | TAB  | -  | 9  | 8  | 7  | +  ||||    |    |    |    |    |    |    |      |
+        //      |----|       |--------------------------------|||-----------------------------------------|
+        //      |    |       |C. LOCK| /  | 6  | 5  | 4  | *  |||||    |    |    |    |    |    |  ENTER  |
+        //       ----        ---------------------------------|||------------------------------------------
+        //                  | LSHIFT  | .  | 3  | 2  | 1  | 0  ||    |    |    |    |    |    | UP |RSHIFT |
+        //                   ------------------------------------------------------------------------------
+        //                   |LCTRL|LGUI ||||LALT |  SPACE  |    || BACKSPACE |RALT||    |LEFT|DOWN|RGHT|
+        //                    --------------------------------------------------------------------------
+        winpad_layer {
+            label = "windows numpad layer";
+            bindings = <
+                &none &trans &none        &none     &none     &none     &none           &none        &none  &none &none  &none &none &none    &none    &trans
+                &none &trans &kp KP_MINUS &kp KP_N9 &kp KP_N8 &kp KP_N7 &kp KP_PLUS                  &none  &none &none  &none &none &none    &none    &none
+                &none &trans &kp KP_SLASH &kp KP_N6 &kp KP_N5 &kp KP_N4 &kp KP_ASTERISK              &none  &none &none  &none &none &none    &trans
+                      &trans &kp KP_DOT   &kp KP_N3 &kp KP_N2 &kp KP_N1 &kp KP_N0                    &none  &none &none  &none &none &none    &kp UP   &trans
+                      &trans &trans                 &trans    &trans    &none                        &trans       &trans &none       &kp LEFT &kp DOWN &kp RIGHT
+            >;
+        };
+
+        // |||||/----\|||||    --------------------------------------------------------------------------
+        // |    |    |    |   |ESC |    |    |    |    |    |    |    |    |    |    |    |    |    |DEL |
+        // |||||\----/|||||   ----------------------------------------------------------------------------
+        //      |    |       | TAB  | -  | 9  | 8  | 7  | +  ||||    |    |    |    |    |    |    |      |
+        //      |----|       |--------------------------------|||-----------------------------------------|
+        //      |    |       |C. LOCK| /  | 6  | 5  | 4  | *  |||||    |    |    |    |    |    |  ENTER  |
+        //       ----        ---------------------------------|||------------------------------------------
+        //                  | LSHIFT  | .  | 3  | 2  | 1  | 0  ||    |    |    |    |    |    | UP |RSHIFT |
+        //                   ------------------------------------------------------------------------------
+        //                   |LGUI |LCTRL||||LALT |  SPACE  |    || BACKSPACE |RALT||    |LEFT|DOWN|RGHT|
+        //                    --------------------------------------------------------------------------
+        macpad_layer {
+            label = "mac numpad layer";
+            bindings = <
+                &none &trans   &none        &none     &none     &none     &none           &none        &none  &none &none  &none &none &none    &none    &trans
+                &none &trans   &kp KP_MINUS &kp KP_N9 &kp KP_N8 &kp KP_N7 &kp KP_PLUS                  &none  &none &none  &none &none &none    &none    &none
+                &none &trans   &kp KP_SLASH &kp KP_N6 &kp KP_N5 &kp KP_N4 &kp KP_ASTERISK              &none  &none &none  &none &none &none    &trans
+                      &trans   &kp KP_DOT   &kp KP_N3 &kp KP_N2 &kp KP_N1 &kp KP_N0                    &none  &none &none  &none &none &none    &kp UP   &trans
+                      &kp LGUI &kp LCTRL                 &trans    &trans    &none                        &trans       &trans &none       &kp LEFT &kp DOWN &kp RIGHT
+            >;
+        };
+    };
+};
