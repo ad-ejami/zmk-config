@@ -180,7 +180,7 @@
         //       ----        ---------------------------------|||------------------------------------------
         //                  | LSHIFT  |    |    |    |    |    ||    |    |    |    |    |    |    |RSHIFT |
         //                   ------------------------------------------------------------------------------
-        //                   |LCTRL|LGUI ||||LALT |  SPACE  |    || BACKSPACE |RALT||TO 1|CPREV |CPP |CNEXT |
+        //                   |LCTRL|LGUI ||||LALT |  SPACE  |    || BACKSPACE |RALT||RCTRL|CPREV |CPP |CNEXT |
         //                    --------------------------------------------------------------------------
         winmod_layer {
             label = "win mod layer";
@@ -189,7 +189,7 @@
                 &kp HOME &trans &none   &none   &none   &none  &none                &none  &none        &bt BT_SEL 0 &none        &none   &none       &none         &bt BT_CLR
                 &kp END  &trans &wpdesk &wsshot &wndesk &none  &none                &none  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none   &none       &trans
                          &trans &none   &none   &none   &none  &none                &none  &none        &none        &none        &none   &none       &none         &trans
-                         &trans &trans          &trans  &trans &none                &trans              &trans       &to 1                &C_PREVIOUS &C_PLAY_PAUSE &C_NEXT
+                         &trans &trans          &trans  &trans &none                &trans              &trans       &trans               &C_PREVIOUS &C_PLAY_PAUSE &C_NEXT
             >;
         };
 
@@ -202,7 +202,7 @@
         //       ----        ---------------------------------|||------------------------------------------
         //                  | LSHIFT  |    |    |    |    |    ||    |    |    |    |    |    |    |RSHIFT |
         //                   ------------------------------------------------------------------------------
-        //                   |LGUI |LCTRL||||LALT |  SPACE  |    || BACKSPACE |RALT||TO 0|CPREV|CPP |CNEXT|
+        //                   |LGUI |LCTRL||||LALT |  SPACE  |    || BACKSPACE |RALT||RCTRL|CPREV|CPP |CNEXT|
         //                    --------------------------------------------------------------------------
         macmod_layer {
             label = "mac mod layer";
@@ -211,7 +211,7 @@
                 &kp HOME &trans   &mwcycle  &mmcontrol &none   &none  &none              &none  &none        &bt BT_SEL 0 &none        &none   &none       &none         &bt BT_CLR
                 &kp END  &trans   &mpdesk   &mcapp     &mndesk &none  &none              &none  &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &none   &none       &trans
                          &trans   &none     &none      &none   &none  &none              &none  &none        &none        &none        &none   &none       &none         &trans
-                         &kp LGUI &kp LCTRL            &trans  &trans &none              &trans              &trans       &to 0                &C_PREVIOUS &C_PLAY_PAUSE &C_NEXT
+                         &kp LGUI &kp LCTRL            &trans  &trans &none              &trans              &trans       &trans               &C_PREVIOUS &C_PLAY_PAUSE &C_NEXT
             >;
         };
 
@@ -224,16 +224,16 @@
         //       ----        ---------------------------------|||------------------------------------------
         //                  | LSHIFT  | .  | 3  | 2  | 1  | 0  ||    |    |    |    |    |    | UP |RSHIFT |
         //                   ------------------------------------------------------------------------------
-        //                   |LCTRL|LGUI ||||LALT |  SPACE  |    || BACKSPACE |RALT||    |LEFT|DOWN|RGHT|
+        //                   |LCTRL|LGUI ||||LALT |  SPACE  |    || BACKSPACE |RALT||RCTRL|LEFT|DOWN|RGHT|
         //                    --------------------------------------------------------------------------
         winpad_layer {
             label = "windows numpad layer";
             bindings = <
-                &none &trans &none        &none     &none     &none     &none           &none        &none  &none &none  &none &none &none    &none    &trans
-                &none &trans &kp KP_MINUS &kp KP_N9 &kp KP_N8 &kp KP_N7 &kp KP_PLUS                  &none  &none &none  &none &none &none    &none    &none
-                &none &trans &kp KP_SLASH &kp KP_N6 &kp KP_N5 &kp KP_N4 &kp KP_ASTERISK              &none  &none &none  &none &none &none    &trans
-                      &trans &kp KP_DOT   &kp KP_N3 &kp KP_N2 &kp KP_N1 &kp KP_N0                    &none  &none &none  &none &none &none    &kp UP   &trans
-                      &trans &trans                 &trans    &trans    &none                        &trans       &trans &none       &kp LEFT &kp DOWN &kp RIGHT
+                &none &trans &none        &none     &none     &none     &none           &none        &none  &none &none  &none  &none &none    &none    &trans
+                &none &trans &kp KP_MINUS &kp KP_N9 &kp KP_N8 &kp KP_N7 &kp KP_PLUS                  &none  &none &none  &none  &none &none    &none    &none
+                &none &trans &kp KP_SLASH &kp KP_N6 &kp KP_N5 &kp KP_N4 &kp KP_ASTERISK              &none  &none &none  &none  &none &none    &trans
+                      &trans &kp KP_DOT   &kp KP_N3 &kp KP_N2 &kp KP_N1 &kp KP_N0                    &none  &none &none  &none  &none &none    &kp UP   &trans
+                      &trans &trans                 &trans    &trans    &none                        &trans       &trans &trans       &kp LEFT &kp DOWN &kp RIGHT
             >;
         };
 
@@ -246,16 +246,16 @@
         //       ----        ---------------------------------|||------------------------------------------
         //                  | LSHIFT  | .  | 3  | 2  | 1  | 0  ||    |    |    |    |    |    | UP |RSHIFT |
         //                   ------------------------------------------------------------------------------
-        //                   |LGUI |LCTRL||||LALT |  SPACE  |    || BACKSPACE |RALT||    |LEFT|DOWN|RGHT|
+        //                   |LGUI |LCTRL||||LALT |  SPACE  |    || BACKSPACE |RALT||RCTRL|LEFT|DOWN|RGHT|
         //                    --------------------------------------------------------------------------
         macpad_layer {
             label = "mac numpad layer";
             bindings = <
-                &none &trans   &none        &none     &none     &none     &none           &none        &none  &none &none  &none &none &none    &none    &trans
-                &none &trans   &kp KP_MINUS &kp KP_N9 &kp KP_N8 &kp KP_N7 &kp KP_PLUS                  &none  &none &none  &none &none &none    &none    &none
-                &none &trans   &kp KP_SLASH &kp KP_N6 &kp KP_N5 &kp KP_N4 &kp KP_ASTERISK              &none  &none &none  &none &none &none    &trans
-                      &trans   &kp KP_DOT   &kp KP_N3 &kp KP_N2 &kp KP_N1 &kp KP_N0                    &none  &none &none  &none &none &none    &kp UP   &trans
-                      &kp LGUI &kp LCTRL              &trans    &trans    &none                        &trans       &trans &none       &kp LEFT &kp DOWN &kp RIGHT
+                &none &trans   &none        &none     &none     &none     &none           &none        &none  &none &none  &none  &none &none    &none    &trans
+                &none &trans   &kp KP_MINUS &kp KP_N9 &kp KP_N8 &kp KP_N7 &kp KP_PLUS                  &none  &none &none  &none  &none &none    &none    &none
+                &none &trans   &kp KP_SLASH &kp KP_N6 &kp KP_N5 &kp KP_N4 &kp KP_ASTERISK              &none  &none &none  &none  &none &none    &trans
+                      &trans   &kp KP_DOT   &kp KP_N3 &kp KP_N2 &kp KP_N1 &kp KP_N0                    &none  &none &none  &none  &none &none    &kp UP   &trans
+                      &kp LGUI &kp LCTRL              &trans    &trans    &none                        &trans       &trans &trans       &kp LEFT &kp DOWN &kp RIGHT
             >;
         };
     };
